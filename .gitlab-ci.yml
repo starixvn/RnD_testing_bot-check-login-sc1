@@ -17,7 +17,7 @@ login-test:
   artifacts:
     reports:
       dotenv: 
-        - Report/Pictures/*.png
+        - Report/Pictures/
     when: always
     expire_in: 1 day  
 
