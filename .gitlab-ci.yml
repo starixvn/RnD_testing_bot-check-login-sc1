@@ -22,21 +22,6 @@ login-test:
     expire_in: 1 day  
 
     
-after-test-f:
-  stage: after-test
-  tags:
-  - docker-automation-test
-  script:
-    - curl --data-urlencode "message=**CI Job 「Check Login SC1」..:rocket:**{{NewLine}}**:no_entry:FAILED:no_entry:**{{NewLine}}Refer [here](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/pipelines/$CI_PIPELINE_ID) for more detail{{NewLine}}________________" -d conversationId=-1001353358025 -d token=0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9 https://bot.nexdev.net/skynex/api/messages/forwardwithtoken
-  when: on_failure
-  
-cleanup_job:
-  stage: cleanup
-  tags:
-  - docker-automation-test
-  script:
-    - echo "Cleaning up"
-    - rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
-  when: always
+
   
   
