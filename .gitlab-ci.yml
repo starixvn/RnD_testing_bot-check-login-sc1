@@ -15,9 +15,8 @@ login-test:
    - set NODE_ENV=cf_prod
    - npm run test
   artifacts:
-    reports:
-      dotenv: 
-        - Report/Pictures/
+    paths:
+      - Report/Pictures/
     when: always
     expire_in: 1 day  
 
