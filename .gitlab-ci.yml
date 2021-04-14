@@ -14,7 +14,7 @@ login-test:
   script:
    - npm install
    - set NODE_ENV=cf_prod
-   - npm run test --args=StartTime=$CI_PIPELINE_CREATED_AT-Job=$CI_JOB_ID
+   - npm run test --args=StartTime=$CI_JOB_STARTED_AT-Job=$CI_JOB_ID
   artifacts:
     paths:
       - Report/Pictures/
