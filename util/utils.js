@@ -481,6 +481,7 @@ export const Login = async(_env,_game) => {
     let t = Math.round((endtime - starttime)/1000)
     console.log('Duration to SSO : (' + (endtime - starttime) +'ms)')
     const args = await parseArg(process.argv[7])
+    console.log(args)
     // Log info
     let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
     await gsheet.init()
