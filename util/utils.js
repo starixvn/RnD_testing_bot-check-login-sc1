@@ -486,7 +486,7 @@ export const Login = async(_env,_game) => {
     let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
     await gsheet.init()
     await gsheet.getSheet('Log')
-    await gsheet.insert({"Product":"SC1","Runtime": runtime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
+    await gsheet.insert({"Product":"SC1","Runtime (UTC+0)": runtime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
 
     // Send Telegram if Failed
     if(t >= 90){
