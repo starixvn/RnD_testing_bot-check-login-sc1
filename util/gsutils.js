@@ -41,7 +41,7 @@ export const Doc = class {
     }
 
     async setDefaultHeader() {
-        await this.sheet.setHeaderRow(["Product","StartTime","Duration","Status"])
+        await this.sheet.setHeaderRow(["Product","Runtime","Duration","Status"])
     }
 
 }

@@ -481,12 +481,12 @@ export const Login = async(_env,_game) => {
     let t = Math.round((endtime - starttime)/1000)
     console.log('Duration to SSO : (' + (endtime - starttime) +'ms)')
     const args = await parseArg(process.argv[7])
-    console.log(args)
+    let runtime = new Date().toLocaleDateString()  + "   " + new Date().toLocaleTimeString()
     // Log info
     let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
     await gsheet.init()
     await gsheet.getSheet('Log')
-    await gsheet.insert({"Product":"SC1","StartTime":args.StartTime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
+    await gsheet.insert({"Product":"SC1","Runtime": runtime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
 
     // Send Telegram if Failed
     if(t >= 90){
