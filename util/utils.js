@@ -482,12 +482,6 @@ export const Login = async(_env,_game) => {
     console.log('Duration to SSO : (' + (endtime - starttime) +'ms)')
     const args = await parseArg(process.argv[7])
     let runtime = new Date().toLocaleDateString()  + "   " + new Date().toLocaleTimeString()
-    // Log info
-    let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
-    await gsheet.init()
-    await gsheet.getSheet('Log')
-    await gsheet.insert({"Product":"SC1","Runtime (UTC+0)": runtime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
-
     // Send Telegram if Failed
     if(t >= 90){
         chai.request("https://api.telegram.org")
@@ -495,11 +489,18 @@ export const Login = async(_env,_game) => {
         .send({
             chat_id: -507838201,
             parse_mode: "markdown",
-            text: `*CI Job 「Check Login SC1」*..🚀\n🚫*FAILED*🚫 - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png)\nRefer [log](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})\nDuration time - ${t} seconds\n____________________`
+            text: `*CI Job 「Check Login SC1」*..🚀\n🚫*FAILED*🚫 - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png)\nRefer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job})\nDuration time - ${t} seconds\n____________________`
         }).end( async(err,res)=>{
-           expect(res).to.have.status(200)
+            expect(res).to.have.status(200)
         })
     }
+    // Log info
+    let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
+    await gsheet.init()
+    await gsheet.getSheet('Log')
+    await gsheet.insert({"Product":"SC1","Runtime (UTC+0)": runtime,"Duration": endtime-starttime,"Status" : t > 30 ? "Failed" : "Passed"})
+
+
 
     // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
