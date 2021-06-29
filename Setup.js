@@ -8,17 +8,20 @@ const expect = chai.expect
 before(async () => {
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
-       headless: config.setting.headless ,
-       args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
+        headless: config.setting.headless ,
+        args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
       })
-    const page = await browser.newPage();
-    global.page = page
     const context = await browser.newContext({
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
+        },
+        recordVideo: {
+          dir: './Report/Videos/',
         }
     });
+    const page = await context.newPage();
+    global.page = page
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")

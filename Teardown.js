@@ -1,3 +1,4 @@
-    after(async function() {
+    after(async function() {    
+        await context.close()
         await browser.close()
     })
