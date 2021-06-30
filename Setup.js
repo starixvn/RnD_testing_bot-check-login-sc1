@@ -21,7 +21,8 @@ before(async () => {
           dir: './Report/Videos/',
         },
         recordHar : {
-          path: './Report/LogPage'
+          path: './Report/LogPage',
+          omitContent: true
         }
     });
     const page = await context.newPage();

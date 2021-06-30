@@ -3,6 +3,7 @@ import pixelmatch from 'pixelmatch'
 import * as MemberSiteFunc from '../Games/MemberSite_Function'
 import * as GameLobbyFunc from '../Games/GameLobby_Funcion'
 import * as gsUtil from './gsutils'
+import { formatWithOptions } from 'util'
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
 const path = require('path')
@@ -489,7 +490,7 @@ export const Login = async(_env,_game) => {
     for(let i = 0 ; i< wsMessageReceived.length ; i++){
         ws= ws + wsMessageReceived[i] + "\n"
     }
-    fs.writeFile('./Report/Log.txt',ws, function (err) {
+    fs.writeFileSync('./Report/Log.txt',ws, function (err) {
         if (err) console.log(err)
         });
     // Send Telegram if Failed

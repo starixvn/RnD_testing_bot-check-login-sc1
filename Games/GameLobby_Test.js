@@ -14,6 +14,7 @@ describe('GameLobby', ()=>{
       var __filename = this.currentTest.title.trim()
       await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
       await addContext (this,`./Pictures/${__filename}.png` )
+      await context.close()
     }
   })
   it('Verify SSO succesfully on PRO', async()=>{
