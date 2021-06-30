@@ -1,5 +1,6 @@
 import playwright from 'playwright'
 import * as config from './config/config'
+const fs = require('fs')
 const chaiHttp = require('chai-http')
 let chai = require('chai')
 chai.use(chaiHttp)
@@ -28,5 +29,6 @@ before(async () => {
     global.env = process.env.NODE_ENV || 'cf_prod'
     global.expect = expect
     global.chai = chai
+    global.fs = fs
 })
 
