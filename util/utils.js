@@ -535,11 +535,13 @@ export const Login = async(_env,_game) => {
     if(flag.Val === false){
         if(attempt === 1){
             attempt = 2
+            msg = `SSO = account ${config.cf_prod.username.Gamelobby1}`
+            await notify(false)
             return false
         } else {
-            msg = "SSO" 
+            msg = `SSO = account ${config.cf_prod.username.Gamelobby2}`
             await notify(false)
-            await shouldBeEqual(true,false,"Fail on SSO")
+            await shouldBeEqual(true,false,"Fail on SSO = account ${}")
             return false
         }
     }
