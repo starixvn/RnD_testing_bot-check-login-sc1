@@ -515,7 +515,7 @@ export const notify = async(_status)=>{
         .send({
             chat_id: -617796399,
             parse_mode: "markdown",
-            text: `*「Check Login SC1」*..:rocket:{{NewLine}}:no_entry_sign:*FAILED ${msg}*:no_entry_sign: - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png){{NewLine}}Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}){{NewLine}}Duration time over ${t} seconds{{NewLine}}____________________`
+            text: `*「Check Login SC1」*: *FAILED ${msg}- Duration ${t} s* - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png) Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job})`
         }).end( async(err,res)=>{
         expect(res).to.have.status(200)})
         }
