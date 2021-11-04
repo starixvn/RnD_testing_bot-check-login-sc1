@@ -491,7 +491,7 @@ export const notifyovertimeout = async(time)=>{
         chai.request("https://api.telegram.org").post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         .send({
             chat_id: -617796399,
-            text: `[Check Login SC1」--SSO over 60ms - Actual time: ${time}`
+            text: `*[Check Login SC1: FAILED SSO over 60s - Actual time: ${time} *`
         }).end( async(err,res)=>{
             console.log('request status',res.status);
         expect(res).to.have.status(200)
@@ -515,7 +515,7 @@ export const notify = async(_status)=>{
         .send({
             chat_id: -617796399,
             parse_mode: "markdown",
-            text: `*「Check Login SC1」*: *FAILED ${msg}- Duration ${t} s* - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png) Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job})`
+            text: `*「Check Login SC1」*: *FAILED ${msg}- Duration ${t}s* - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png) Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job})`
         }).end( async(err,res)=>{
         expect(res).to.have.status(200)})
         }
