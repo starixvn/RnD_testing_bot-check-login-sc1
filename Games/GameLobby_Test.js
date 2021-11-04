@@ -31,5 +31,5 @@ describe('GameLobby', ()=>{
     } else {
       await utils.shouldBeEqual(true,false,"Network has issue")
     }
-  }).timeout(270000)
+  }).timeout(120000)
 })

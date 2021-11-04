@@ -487,27 +487,44 @@ export const writeLog = async() => {
         });
 } 
 
+export const notifyovertimeout = async(time)=>{
+        chai.request("https://api.telegram.org").post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
+        .send({
+            chat_id: -617796399,
+            text: `[Check Login SC1」--SSO over 60ms - Actual time: ${time}`
+        }).end( async(err,res)=>{
+            console.log('request status',res.status);
+        expect(res).to.have.status(200)
+        })
+}
+
 export const notify = async(_status)=>{
     const args = await parseArg(process.argv[7])
     // let runtime = new Date().toLocaleDateString()  + "   " + new Date().toLocaleTimeString()
     // Send Telegram if Failed
     if(_status === false){
-        let res = await chai.request("https://bot.nexdev.net")
-        .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+        // let res = await chai.request("https://bot.nexdev.net")
+        // .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+        // .send({
+        //     token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+        //     conversationId: -1001373563170,
+            // message: `*「Check Login SC1」*..:rocket:{{NewLine}}:no_entry_sign:*FAILED ${msg}*:no_entry_sign: - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png){{NewLine}}Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}){{NewLine}}Duration time over ${t} seconds{{NewLine}}____________________`        })
+        // await shouldBeEqual(res.statusCode,200)
+        chai.request("https://api.telegram.org")
+        .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         .send({
-            token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-            conversationId: -1001373563170,
-            message: `*「Check Login SC1」*..:rocket:{{NewLine}}:no_entry_sign:*FAILED ${msg}*:no_entry_sign: - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png){{NewLine}}Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}){{NewLine}}Duration time over ${t} seconds{{NewLine}}____________________`
-        })
-        await shouldBeEqual(res.statusCode,200)
-    }
-
+            chat_id: -617796399,
+            parse_mode: "markdown",
+            text: `*「Check Login SC1」*..:rocket:{{NewLine}}:no_entry_sign:*FAILED ${msg}*:no_entry_sign: - [Picture](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}/artifacts/file/Report/Pictures/Verify%20SSO%20succesfully%20on%20PRO.png){{NewLine}}Refer [log](https://git3.nexdev.net/RnD/testing/bot-check-login-sc1/-/jobs/${args.Job}){{NewLine}}Duration time over ${t} seconds{{NewLine}}____________________`
+        }).end( async(err,res)=>{
+        expect(res).to.have.status(200)})
+        }
+}
     // // Log info
     // let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
     // await gsheet.init()
     // await gsheet.getSheet('Log')
     // await gsheet.insert({"Product":"SC1","Runtime (UTC+0)": runtime,"Duration": t,"Status" : t > 30 ? "Failed" : "Passed"})
-}
 
 // Login
 export const Login = async(_env,_game) => {
@@ -529,14 +546,17 @@ export const Login = async(_env,_game) => {
         }
     }
     // Navigate Sabaclub
+    starttime = Date.now()
     await navigate(page.url().toString().replace(/\/Sports/g,'')+config[_env].gamelobbyurl)
     // Verify go to Game Lobby Successfully
-    starttime = Date.now()
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     endtime = Date.now()
     t = Math.round((endtime - starttime)/1000)
-    console.log('Duration to SSO : (' + (endtime - starttime) +'ms)')
-
+    let _ssotime = endtime - starttime
+    console.log('Duration to SSO : (' + _ssotime +'ms)')
+    if (_ssotime >= 60000 & flag.Val == true){
+        await notifyovertimeout(_ssotime)
+    }
     if(flag.Val === false){
         if(attempt === 1){
             attempt = 2
