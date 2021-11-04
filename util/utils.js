@@ -488,10 +488,11 @@ export const writeLog = async() => {
 } 
 
 export const notifyovertimeout = async(time)=>{
+        let ac_time = parseFloat(time/1000).toFixed(1)
         chai.request("https://api.telegram.org").post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         .send({
             chat_id: -617796399,
-            text: `*[Check Login SC1: FAILED SSO over 60s - Actual time: ${time} *`
+            text: `[Check Login SC1: FAILED SSO OVER 60s - Actual time: ${ac_time}s `
         }).end( async(err,res)=>{
             console.log('request status',res.status);
         expect(res).to.have.status(200)
