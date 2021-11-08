@@ -16,7 +16,7 @@ before(async () => {
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
-        }
+        },
         recordVideo: {
           dir: './Report/Videos/',
         },
