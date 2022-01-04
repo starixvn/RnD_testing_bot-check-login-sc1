@@ -549,6 +549,10 @@ export const Login = async(_env,_game) => {
     // Navigate Sabaclub
     starttime = Date.now()
     await navigate(page.url().toString().replace(/\/Sports/g,'')+config[_env].gamelobbyurl)
+    //select group currency
+    await selectDrp('xpath=//*/select[@id="group"]','61b048d27e6d8f000145357f')
+    await clickEl('xpath=//input[@value="Submit"]')
+    await sleep(8000)
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     endtime = Date.now()
