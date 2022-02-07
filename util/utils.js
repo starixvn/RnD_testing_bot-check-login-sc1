@@ -559,7 +559,7 @@ export const Login = async(_env,_game) => {
     t = Math.round((endtime - starttime)/1000)
     let _ssotime = endtime - starttime
     console.log('Duration to SSO : (' + _ssotime +'ms)')
-    if (_ssotime >= 60000 & flag.Val == true){
+    if (_ssotime >= 80000 & flag.Val == true){
         await notifyovertimeout(_ssotime)
     }
     if(flag.Val === false){
